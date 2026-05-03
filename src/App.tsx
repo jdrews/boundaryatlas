@@ -49,12 +49,18 @@ const App: React.FC = () => {
 
       const baseUrl = import.meta.env.BASE_URL === '/' ? '' : import.meta.env.BASE_URL;
       const countriesPath = `${baseUrl}/data/countries.json`.replace(/\/+/g, '/');
+      const countryLabelsPath = `${baseUrl}/data/country_labels.json`.replace(/\/+/g, '/');
       const citiesPath = `${baseUrl}/data/cities.json`.replace(/\/+/g, '/');
 
       map.current.addSource('countries', {
         type: 'geojson',
         data: countriesPath,
         generateId: true
+      });
+
+      map.current.addSource('country_labels', {
+        type: 'geojson',
+        data: countryLabelsPath
       });
 
       map.current.addSource('cities', {
@@ -106,11 +112,11 @@ const App: React.FC = () => {
         }
       });
 
-      // 3. Country Labels (NEW)
+      // 3. Country Labels (Using dedicated label points)
       map.current.addLayer({
         id: 'countries-label',
         type: 'symbol',
-        source: 'countries',
+        source: 'country_labels',
         layout: {
           'text-field': ['get', 'NAME'],
           'text-font': ['Noto Sans Regular'],

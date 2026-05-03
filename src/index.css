@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --bg-color: #ffffff;
+  --text-color: #1a1a1a;
+  --map-bg: #e0f2f1;
+  --panel-bg: rgba(255, 255, 255, 0.8);
+  --panel-border: rgba(0, 0, 0, 0.1);
+  --accent-color: #26a69a;
+  --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+[data-theme='dark'] {
+  --bg-color: #121212;
+  --text-color: #e0e0e0;
+  --map-bg: #0b0e14;
+  --panel-bg: rgba(18, 18, 18, 0.8);
+  --panel-border: rgba(255, 255, 255, 0.1);
+  --accent-color: #4db6ac;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, html, #root, .app-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+#map-container {
+  width: 100%;
+  height: 100%;
+  background-color: var(--map-bg);
+}
+
+.maplibre-gl-canvas {
+  outline: none;
+}
+
+/* UI Overlays */
+.ui-overlay {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.glass-panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.title-panel h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+.title-panel p {
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.controls-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+button.icon-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button.icon-btn:hover {
+  background: rgba(128, 128, 128, 0.1);
+}
+
+.legend-panel {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 0.75rem;
+}
+
+/* Custom attribution */
+.maplibregl-ctrl-attrib {
+  background: transparent !important;
+  color: var(--text-color) !important;
+  opacity: 0.5;
+}

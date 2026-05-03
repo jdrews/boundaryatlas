@@ -6,6 +6,7 @@ import { Sun, Moon, Globe, Info } from 'lucide-react';
 const App: React.FC = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
+  const popup = useRef<maplibregl.Popup | null>(null);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   // Country colors for 7-color map
@@ -42,6 +43,14 @@ const App: React.FC = () => {
       center: [0, 20],
       zoom: 1.5,
       attributionControl: false
+    });
+
+    // Initialize Tooltip Popup
+    popup.current = new maplibregl.Popup({
+      closeButton: false,
+      closeOnClick: false,
+      className: 'country-tooltip',
+      offset: 15
     });
 
     map.current.on('load', () => {
@@ -210,15 +219,30 @@ const App: React.FC = () => {
 
       // Hover Interaction
       let hoveredStateId: string | number | null = null;
+
       map.current.on('mousemove', 'countries-fill', (e) => {
         if (e.features && e.features.length > 0) {
+          const feature = e.features[0];
+          const countryName = feature.properties?.NAME || 'Unknown';
+
           if (hoveredStateId !== null) {
             map.current?.setFeatureState({ source: 'countries', id: hoveredStateId }, { hover: false });
           }
-          hoveredStateId = e.features[0].id ?? null;
+
+          hoveredStateId = feature.id ?? null;
+
           if (hoveredStateId !== null) {
             map.current?.setFeatureState({ source: 'countries', id: hoveredStateId }, { hover: true });
           }
+
+          // Tooltip Update
+          if (popup.current && map.current) {
+            popup.current
+              .setLngLat(e.lngLat)
+              .setHTML(`<div class="tooltip-content">${countryName}</div>`)
+              .addTo(map.current);
+          }
+
           map.current!.getCanvas().style.cursor = 'pointer';
         }
       });
@@ -228,6 +252,11 @@ const App: React.FC = () => {
           map.current?.setFeatureState({ source: 'countries', id: hoveredStateId }, { hover: false });
         }
         hoveredStateId = null;
+
+        if (popup.current) {
+          popup.current.remove();
+        }
+
         map.current!.getCanvas().style.cursor = '';
       });
     });
@@ -235,6 +264,7 @@ const App: React.FC = () => {
     return () => {
       map.current?.remove();
       map.current = null;
+      popup.current = null;
     };
   }, []);
 

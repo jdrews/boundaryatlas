@@ -112,3 +112,26 @@ button.icon-btn:hover {
   color: var(--text-color) !important;
   opacity: 0.5;
 }
+
+/* Tooltip Styling */
+.country-tooltip .maplibregl-popup-content {
+  background: var(--panel-bg) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.country-tooltip .maplibregl-popup-tip {
+  border-top-color: var(--panel-border) !important;
+  opacity: 0.5;
+}
+
+.tooltip-content {
+  text-align: center;
+}

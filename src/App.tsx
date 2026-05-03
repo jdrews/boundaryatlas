@@ -297,7 +297,7 @@ const App: React.FC = () => {
       <div className="glass-panel legend-panel">
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <Globe size={14} />
-          <span>Natural Earth 1:110m Data</span>
+          <span>Natural Earth 1:50m Data</span>
         </div>
       </div>
 

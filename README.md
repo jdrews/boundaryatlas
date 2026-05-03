@@ -1,6 +1,7 @@
 # BoundaryAtlas
 
 A geopolitical world map explorer featuring thematic country coloring reminiscent of classroom globes. Built with a modern tech stack for high-performance interaction.
+https://jdrews.github.io/boundaryatlas/
 
 ## Features
 - **Thematic Coloring**: Uses 7-color map logic to ensure adjacent countries have distinct colors, just like we had on classroom globes.
